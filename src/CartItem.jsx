@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeItem, updateQuantity } from './CartSlice';
+import { updateQuantity, addItem, removeItem } from "./CartSlice";
 import './CartItem.css';
 
 const CartItem = ({ onContinueShopping }) => {
@@ -44,6 +44,26 @@ const handleDecrement = (item) => {
  const calculateTotalCost = (item) => {
   const unitPrice = parseFloat(item.cost.substring(1));
   return unitPrice * item.quantity;
+};
+
+const handleAddToCart = (product) => {
+  dispatch(addItem(product));
+};
+
+const calculateTotalQuantity = () => {
+  return CartItems ? CartItems.reduce((total, item) => total + item.quantity, 0) : 0;
+};
+
+const handleUpdateQuantity = (item, newQuantity) => {
+  dispatch(updateQuantity({ name: item.name, quantity: newQuantity }));
+};
+
+const handleAddItem = (product) => {
+  dispatch(addItem(product));
+};
+
+const handleRemoveItem = (item) => {
+  dispatch(removeItem(item.name));
 };
 
 
